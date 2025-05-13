@@ -73,7 +73,7 @@ pip install tensorflow==1.15.0 numpy==1.16.4 tensorflow-addons
 
 The project utilizes the `mtsamples_classifier.csv` dataset, which contains a collection of clinical text examples across various medical specialties. This dataset provides a diverse range of clinical notes, ideal for training and evaluating NER models on medical text.
 
-If you don't have access to the mtsamples dataset, you can use other publicly available healthcare datasets like:
+You can use other publicly available healthcare datasets like:
 - MIMIC-III (requires credentialing)
 - i2b2 challenge datasets
 - Medical transcription samples
