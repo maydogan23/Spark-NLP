@@ -157,6 +157,83 @@ elif row['clinical_label'] != 'O':
     merged_label = row['clinical_label']
 else:
     merged_label = 'O'
+Posology NER Chunks:
++-------+---------+
+|chunk  |entity   |
++-------+---------+
+|Aspirin|DRUG     |
+|10mg   |STRENGTH |
+|daily  |FREQUENCY|
++-------+---------+
+
+
+DeID NER Chunks:
++-----------------+--------+
+|chunk            |entity  |
++-----------------+--------+
+|John Doe         |NAME    |
+|Smith            |NAME    |
+|Memorial Hospital|LOCATION|
+|January 15, 2023 |DATE    |
++-----------------+--------+
+
+
+Clinical NER Chunks:
++-------------+---------+
+|chunk        |entity   |
++-------------+---------+
+|Aspirin      |TREATMENT|
+|heart disease|PROBLEM  |
++-------------+---------+
+
++----------+--------------+----------+--------------+
+|token     |clinical_label|deid_label|posology_label|
++----------+--------------+----------+--------------+
+|Patient   |O             |O         |O             |
+|was       |O             |O         |O             |
+|prescribed|O             |O         |O             |
+|Aspirin   |B-TREATMENT   |O         |B-DRUG        |
+|10mg      |O             |O         |B-STRENGTH    |
+|daily     |O             |O         |B-FREQUENCY   |
+|for       |O             |O         |O             |
+|heart     |B-PROBLEM     |O         |O             |
+|disease   |I-PROBLEM     |O         |O             |
+|.         |O             |O         |O             |
+|John      |O             |B-NAME    |O             |
+|Doe       |O             |I-NAME    |O             |
+|visited   |O             |O         |O             |
+|Dr        |O             |O         |O             |
+|.         |O             |O         |O             |
+|Smith     |O             |B-NAME    |O             |
+|at        |O             |O         |O             |
+|Memorial  |O             |B-LOCATION|O             |
+|Hospital  |O             |I-LOCATION|O             |
+|on        |O             |O         |O             |
++----------+--------------+----------+--------------+
+
+
+         token clinical_label  deid_label posology_label merged_label
+0      Patient              O           O              O            O
+1          was              O           O              O            O
+2   prescribed              O           O              O            O
+3      Aspirin    B-TREATMENT           O         B-DRUG       B-DRUG
+4         10mg              O           O     B-STRENGTH   B-STRENGTH
+5        daily              O           O    B-FREQUENCY  B-FREQUENCY
+6          for              O           O              O            O
+7        heart      B-PROBLEM           O              O    B-PROBLEM
+8      disease      I-PROBLEM           O              O    I-PROBLEM
+9            .              O           O              O            O
+10        John              O      B-NAME              O       B-NAME
+11         Doe              O      I-NAME              O       I-NAME
+12     visited              O           O              O            O
+13          Dr              O           O              O            O
+14           .              O           O              O            O
+15       Smith              O      B-NAME              O       B-NAME
+16          at              O           O              O            O
+17    Memorial              O  B-LOCATION              O   B-LOCATION
+18    Hospital              O  I-LOCATION              O   I-LOCATION
+19          on              O           O              O            O
+
 ```
 
 ### Why Merge Multiple Models?
